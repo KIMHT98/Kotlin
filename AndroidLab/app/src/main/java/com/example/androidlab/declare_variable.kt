@@ -18,7 +18,7 @@ fun someFunc(){
     data4 = 10
     println("data4 : $data4")
 }
-class User {
+class KHT {
 //    val age: Int 에러
     val age: Int = 26
 }
