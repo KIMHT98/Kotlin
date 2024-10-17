@@ -6,7 +6,7 @@ plugins {
 android {
     namespace = "com.example.jetpacklibrary"
     compileSdk = 34
-
+    viewBinding.isEnabled=true
     defaultConfig {
         applicationId = "com.example.jetpacklibrary"
         minSdk = 24
