@@ -1,0 +1,20 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color white
+drawable ckl
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+id invisibleBtn
+id targetView
+id text1
+id visibleBtn
+layout activity_main
+layout linear_test1
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+style Base.Theme.AndroidView
+style Theme.AndroidView
+xml backup_rules
+xml data_extraction_rules

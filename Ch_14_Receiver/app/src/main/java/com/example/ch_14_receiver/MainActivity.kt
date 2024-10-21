@@ -23,59 +23,63 @@ class MainActivity : AppCompatActivity() {
 
         val permissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
-        ){
-            if(it.all { permission -> permission.value == true }){
+        ) {
+            if (it.all { permission -> permission.value == true }) {
                 val intent = Intent(this, MyReceiver::class.java)
                 sendBroadcast(intent)
-            }else {
-                Toast.makeText(this, "permission denied",Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "permission denied", Toast.LENGTH_SHORT).show()
             }
         }
 
         registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))!!.apply {
-            when(getIntExtra(BatteryManager.EXTRA_STATUS,-1)){
+            when (getIntExtra(BatteryManager.EXTRA_STATUS, -1)) {
                 BatteryManager.BATTERY_STATUS_CHARGING -> {
-                    when(getIntExtra(BatteryManager.EXTRA_PLUGGED,-1)){
-                        BatteryManager.BATTERY_PLUGGED_USB->{
+                    when (getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)) {
+                        BatteryManager.BATTERY_PLUGGED_USB -> {
                             binding.chargingResultView.text = "USB Plugged"
                             binding.chargingImageView.setImageBitmap(
-                                BitmapFactory.decodeResource(resources,R.drawable.usb)
+                                BitmapFactory.decodeResource(resources, R.drawable.usb)
                             )
                         }
-                        BatteryManager.BATTERY_PLUGGED_AC->{
-                            binding.chargingResultView.text="AC Plugged"
+
+                        BatteryManager.BATTERY_PLUGGED_AC -> {
+                            binding.chargingResultView.text = "AC Plugged"
                             binding.chargingImageView.setImageBitmap(
-                                BitmapFactory.decodeResource(resources,R.drawable.ac))
+                                BitmapFactory.decodeResource(resources, R.drawable.ac)
+                            )
                         }
                     }
-                }else -> {
-                    binding.chargingResultView.text="Not Plugged"
+                }
+
+                else -> {
+                    binding.chargingResultView.text = "Not Plugged"
                 }
             }
-            val level = getIntExtra(BatteryManager.EXTRA_LEVEL,-1)
-            val scale = getIntExtra(BatteryManager.EXTRA_SCALE,-1)
-            val batteryPct = level / scale.toFloat()*100
+            val level = getIntExtra(EXTRA_LEVEL, -1)
+            val scale = getIntExtra(EXTRA_SCALE, -1)
+            val batteryPct = level / scale.toFloat() * 100
             binding.percentResultView.text = "$batteryPct %"
         }
-        binding.button.setOnClickListener{
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
-                if(ContextCompat.checkSelfPermission(
-                    this,"android.permission.POST_NOTIFICATIONS"
-                )==PackageManager.PERMISSION_GRANTED){
-                    val intent = Intent(this,MyReceiver::class.java)
+        binding.button.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                if (ContextCompat.checkSelfPermission(
+                        this, "android.permission.POST_NOTIFICATIONS"
+                    ) == PackageManager.PERMISSION_GRANTED
+                ) {
+                    val intent = Intent(this, MyReceiver::class.java)
                     sendBroadcast(intent)
-                }else {
+                } else {
                     permissionLauncher.launch(
                         arrayOf(
                             "android.permission.POST_NOTIFICATIONS"
                         )
                     )
                 }
-            }else {
-                val intent = Intent(this,MyReceiver::class.java)
+            } else {
+                val intent = Intent(this, MyReceiver::class.java)
                 sendBroadcast(intent)
             }
         }
-
     }
 }

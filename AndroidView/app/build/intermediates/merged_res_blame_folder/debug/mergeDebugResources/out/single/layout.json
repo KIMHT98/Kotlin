@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.example.androidview.app-mergeDebugResources-30:/layout/activity_main.xml",
+        "source": "com.example.androidview.app-main-33:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.androidview.app-mergeDebugResources-30:/layout/linear_test1.xml",
+        "source": "com.example.androidview.app-main-33:/layout/linear_test1.xml"
+    }
+]
